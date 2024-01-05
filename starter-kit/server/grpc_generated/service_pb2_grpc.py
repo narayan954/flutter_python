@@ -15,10 +15,10 @@ class NumberSortingServiceStub(object):
             channel: A grpc.Channel.
         """
         self.SortNumbers = channel.unary_unary(
-                '/NumberSortingService/SortNumbers',
-                request_serializer=service__pb2.NumberArray.SerializeToString,
-                response_deserializer=service__pb2.NumberArray.FromString,
-                )
+            "/NumberSortingService/SortNumbers",
+            request_serializer=service__pb2.NumberArray.SerializeToString,
+            response_deserializer=service__pb2.NumberArray.FromString,
+        )
 
 
 class NumberSortingServiceServicer(object):
@@ -27,40 +27,53 @@ class NumberSortingServiceServicer(object):
     def SortNumbers(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
 
 def add_NumberSortingServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'SortNumbers': grpc.unary_unary_rpc_method_handler(
-                    servicer.SortNumbers,
-                    request_deserializer=service__pb2.NumberArray.FromString,
-                    response_serializer=service__pb2.NumberArray.SerializeToString,
-            ),
+        "SortNumbers": grpc.unary_unary_rpc_method_handler(
+            servicer.SortNumbers,
+            request_deserializer=service__pb2.NumberArray.FromString,
+            response_serializer=service__pb2.NumberArray.SerializeToString,
+        ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'NumberSortingService', rpc_method_handlers)
+        "NumberSortingService", rpc_method_handlers
+    )
     server.add_generic_rpc_handlers((generic_handler,))
 
 
- # This class is part of an EXPERIMENTAL API.
+# This class is part of an EXPERIMENTAL API.
 class NumberSortingService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def SortNumbers(request,
+    def SortNumbers(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
+        return grpc.experimental.unary_unary(
+            request,
             target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/NumberSortingService/SortNumbers',
+            "/NumberSortingService/SortNumbers",
             service__pb2.NumberArray.SerializeToString,
             service__pb2.NumberArray.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+        )
